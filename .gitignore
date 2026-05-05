@@ -1,0 +1,75 @@
+# ======================
+# Python
+# ======================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# ======================
+# Virtual Environment
+# ======================
+.venv/
+venv/
+env/
+ENV/
+
+# ======================
+# Jupyter
+# ======================
+.ipynb_checkpoints/
+
+# ======================
+# OS Files
+# ======================
+.DS_Store
+Thumbs.db
+
+# ======================
+# Logs
+# ======================
+*.log
+
+# ======================
+# Model & Training Outputs (IMPORTANT)
+# ======================
+adapters/
+checkpoints/
+outputs/
+runs/
+*.bin
+*.pt
+*.pth
+*.safetensors
+
+# ======================
+# HuggingFace Cache
+# ======================
+.cache/
+.huggingface/
+hf_cache/
+
+# ======================
+# Dataset (optional)
+# ======================
+#data/*.jsonl
+#data/*.csv
+
+# ======================
+# VSCode / IDE
+# ======================
+.vscode/
+.idea/
+
+# ======================
+# Temporary files
+# ======================
+*.tmp
+*.swp
+
+# ======================
+# Environment variables
+# ======================
+.env
+.env.*
