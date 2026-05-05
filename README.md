@@ -172,8 +172,3 @@ The model outputs must satisfy:
 
 ---
 
-## 👨‍💻 Author
-
-**Parakkrama Dasanayaka**  
-Computer Engineering Undergraduate  
-University of Ruhuna
