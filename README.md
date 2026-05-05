@@ -1,6 +1,3 @@
-**✅ Here is the complete, clean README.md file ready to copy-paste:**
-
-```md
 # 🚀 LLM-Guided DRL Routing (LoRA Fine-Tuning)
 
 This project implements **LoRA fine-tuning of a Large Language Model (LLM)** to dynamically assist a **Deep Reinforcement Learning (DRL)** routing system.
@@ -32,7 +29,7 @@ LLM_Tune_ToRa/
 ├── data/
 │   └── train.jsonl          # Generated dataset
 │
-├── adapters/                # LoRA adapters (ignored in git)
+├── adapters/                # LoRA output (ignored in git)
 │
 ├── generate_dataset.py      # Dataset generator
 ├── train_lora.py            # LoRA training script
@@ -51,47 +48,67 @@ LLM_Tune_ToRa/
 
 ```bash
 python3 -m venv .venv
-source .venv/bin/activate          # Windows: .venv\Scripts\activate
+source .venv/bin/activate
 ```
 
 ### 2. Install dependencies
 
 ```bash
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-pip install transformers datasets peft accelerate trl bitsandbytes
+pip install torch transformers datasets peft accelerate trl bitsandbytes
 ```
 
-### 3. Verify GPU
+### 3. Check GPU (optional but recommended)
 
 ```bash
-python -c "import torch; print('CUDA Available:', torch.cuda.is_available())"
+python -c "import torch; print(torch.cuda.is_available())"
 ```
 
 ---
 
 ## 📊 Dataset Generation
 
+Generate synthetic dataset:
+
 ```bash
 python generate_dataset.py
 ```
 
+Output:
+
+```
+data/train.jsonl
+```
+
 ---
 
-## 🧪 Training
+## 🧪 LoRA Training
+
+Run:
 
 ```bash
 python train_lora.py
 ```
 
+This will:
+- Load TinyLlama model
+- Apply LoRA fine-tuning
+- Save adapter in:
+
+```
+adapters/tinyllama-lora-sdven/
+```
+
 ---
 
-## 🧪 Testing
+## 🔍 Model Testing
+
+Run:
 
 ```bash
 python test_model.py
 ```
 
-**Expected Output Example:**
+Expected output:
 
 ```json
 {
@@ -107,48 +124,51 @@ python test_model.py
 
 ## 🧠 Model Details
 
-- **Base Model**: TinyLlama-1.1B
-- **Method**: LoRA Fine-tuning
-- **Tasks**:
-  - Predict reward weights **μ**
-  - Predict privacy levels **ψ** per flow
+| Property | Value |
+|----------|-------|
+| Base Model | TinyLlama-1.1B |
+| Fine-tuning | LoRA (Low-Rank Adaptation) |
+| Output 1 | Reward weights μ |
+| Output 2 | Privacy levels ψ per flow |
 
 ---
 
-## ⚖️ Output Constraints
+## ⚖️ Constraints
 
-- Sum of μ must equal 1
-- μ values ≥ minimum threshold
-- Privacy ψ ∈ [0, 1]
+The model outputs must satisfy:
 
-Invalid outputs are corrected during inference.
+- Sum of μ = 1
+- μ ≥ μ_min
+- 0 ≤ ψ ≤ 1
+
+> Invalid outputs are corrected automatically during inference.
 
 ---
 
-## 🔥 Key Technologies
+## 🚀 Key Technologies
 
-- PyTorch
-- Hugging Face Transformers
-- PEFT (LoRA)
-- TRL (SFTTrainer)
-- BitsAndBytes
+| Technology | Purpose |
+|------------|---------|
+| PyTorch | Deep learning framework |
+| HuggingFace Transformers | LLM loading & inference |
+| PEFT (LoRA) | Parameter-efficient fine-tuning |
+| TRL (SFTTrainer) | Supervised fine-tuning |
 
 ---
 
 ## 📌 Notes
 
-- `.venv` is not committed
-- `adapters/` folder is ignored (large files)
+- `.venv` is not included in repo
+- `adapters/` is ignored (large files)
 - Dataset can be regenerated anytime
 
 ---
 
-## 🚀 Future Work
+## 🔥 Future Work
 
-- Integration with ns-3 simulator
+- Integrate with ns-3 simulation
 - Real-time LLM inference
-- Joint DRL + LLM optimization
-- Experiment with larger models
+- DRL + LLM joint optimization
 
 ---
 
@@ -157,14 +177,3 @@ Invalid outputs are corrected during inference.
 **Parakkrama Dasanayaka**  
 Computer Engineering Undergraduate  
 University of Ruhuna
-
----
-
-**Made with ❤️ for Final Year Project**
-```
-
----
-
-**Just copy everything above** (from `# 🚀` to the end) and paste into your `README.md` file.  
-
-Done! 👍
