@@ -1,213 +1,170 @@
-Good — a clean **README.md** will boost your FYP quality a lot. I’ll give you a **professional but simple version** you can directly use.
+**✅ Here is the complete, clean README.md file ready to copy-paste:**
 
----
+```md
+# 🚀 LLM-Guided DRL Routing (LoRA Fine-Tuning)
 
-# 📄 `README.md`
+This project implements **LoRA fine-tuning of a Large Language Model (LLM)** to dynamically assist a **Deep Reinforcement Learning (DRL)** routing system.
 
-```markdown
-# 🚀 LLM-Guided LoRA Fine-Tuning for SDVEN Routing (FYP)
-
-This project implements a **LoRA fine-tuned Large Language Model (LLM)** to support intelligent routing decisions in **Software-Defined Vehicular Edge Networks (SDVEN)**.
-
-The LLM dynamically generates:
-- 🎯 Reward weights (μ) for DRL routing
-- 🔐 Privacy levels (ψ) for each network flow
+The LLM is trained to:
+- Generate **reward weights (μ)**
+- Assign **privacy levels (ψ)** for each network flow
 
 ---
 
 ## 🧠 Project Idea
 
-Traditional routing uses fixed rules.  
-This project uses:
+The system works as:
 
-- 🤖 **LLM (TinyLlama)** → decides priorities
-- 🎮 **DRL (PPO)** → performs routing
-- ⚡ **LoRA fine-tuning** → makes LLM lightweight & efficient
+```
+Network State → LLM → (μ, ψ) → DRL Agent → Optimized Routing
+```
+
+- **LLM** decides priorities (performance, QoS, privacy)
+- **DRL** decides how to route traffic
 
 ---
 
-## 🏗️ System Pipeline
+## 📁 Project Structure
 
 ```
-
-Network State (JSON)
-↓
-LLM (LoRA Fine-tuned)
-↓
-μ (reward weights) + ψ (privacy)
-↓
-DRL Agent (PPO)
-↓
-Optimized Routing Decisions
-
-```
-
----
-
-## 📂 Project Structure
-
-```
-
 LLM_Tune_ToRa/
+│
 ├── data/
 │   └── train.jsonl          # Generated dataset
+│
+├── adapters/                # LoRA adapters (ignored in git)
+│
 ├── generate_dataset.py      # Dataset generator
 ├── train_lora.py            # LoRA training script
-├── test_model.py            # Inference test script
-├── adapters/               # Trained LoRA weights (ignored in git)
+├── test_model.py            # Model testing script
+│
+├── requirements.txt
+├── .gitignore
 └── README.md
-
 ```
 
 ---
 
 ## ⚙️ Setup Instructions
 
-### 1️⃣ Create virtual environment
+### 1. Create virtual environment
 
-```
-
+```bash
 python3 -m venv .venv
-source .venv/bin/activate
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+```
 
+### 2. Install dependencies
+
+```bash
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+pip install transformers datasets peft accelerate trl bitsandbytes
+```
+
+### 3. Verify GPU
+
+```bash
+python -c "import torch; print('CUDA Available:', torch.cuda.is_available())"
 ```
 
 ---
 
-### 2️⃣ Install dependencies
+## 📊 Dataset Generation
 
-```
-
-pip install torch transformers datasets peft accelerate trl bitsandbytes
-
-```
-
----
-
-### 3️⃣ Generate dataset
-
-```
-
+```bash
 python generate_dataset.py
-
-```
-
-Output:
-```
-
-data/train.jsonl
-
 ```
 
 ---
 
-## 🏋️ Train LoRA Model
+## 🧪 Training
 
-```
-
+```bash
 python train_lora.py
-
-```
-
-This will:
-- Load TinyLlama
-- Apply LoRA
-- Train on dataset
-- Save adapter in:
-
-```
-
-adapters/tinyllama-lora-sdven/
-
 ```
 
 ---
 
-## 🧪 Test Model
+## 🧪 Testing
 
+```bash
+python test_model.py
 ```
 
-python test_model.py
-
-````
-
-Expected output:
+**Expected Output Example:**
 
 ```json
 {
   "mu": [0.2, 0.25, 0.2, 0.15, 0.2],
   "privacy": {
     "1": 0.7,
-    "2": 0.5,
-    "3": 0.3
+    "2": 0.6
   }
 }
-````
+```
 
 ---
 
-## 🔥 Key Concepts Used
+## 🧠 Model Details
 
-* **LoRA (Low-Rank Adaptation)**
-  Efficient fine-tuning without changing full model weights
-
-* **PPO (Proximal Policy Optimization)**
-  Reinforcement learning for routing
-
-* **Structured Prompting**
-  Network state → JSON → LLM input
+- **Base Model**: TinyLlama-1.1B
+- **Method**: LoRA Fine-tuning
+- **Tasks**:
+  - Predict reward weights **μ**
+  - Predict privacy levels **ψ** per flow
 
 ---
 
-## ⚠️ Notes
+## ⚖️ Output Constraints
 
-* LoRA adapters are **not uploaded** (too large)
-* Dataset is synthetic (can replace with ns-3 data)
-* GPU recommended for faster training
+- Sum of μ must equal 1
+- μ values ≥ minimum threshold
+- Privacy ψ ∈ [0, 1]
+
+Invalid outputs are corrected during inference.
 
 ---
 
-## 🎯 Future Improvements
+## 🔥 Key Technologies
 
-* Integrate with real ns-3 simulation output
-* Improve dataset quality
-* Add real-time inference API
-* Optimize model latency
+- PyTorch
+- Hugging Face Transformers
+- PEFT (LoRA)
+- TRL (SFTTrainer)
+- BitsAndBytes
+
+---
+
+## 📌 Notes
+
+- `.venv` is not committed
+- `adapters/` folder is ignored (large files)
+- Dataset can be regenerated anytime
+
+---
+
+## 🚀 Future Work
+
+- Integration with ns-3 simulator
+- Real-time LLM inference
+- Joint DRL + LLM optimization
+- Experiment with larger models
 
 ---
 
 ## 👨‍💻 Author
 
-Parakkrama
-Computer Engineering Undergraduate
-Game Developer | AI Enthusiast
+**Parakkrama Dasanayaka**  
+Computer Engineering Undergraduate  
+University of Ruhuna
 
 ---
 
-## ⭐ If useful
-
-Give this repo a star ⭐
-
+**Made with ❤️ for Final Year Project**
 ```
 
 ---
 
-# 🧠 Why this README is good
+**Just copy everything above** (from `# 🚀` to the end) and paste into your `README.md` file.  
 
-- Clean structure  
-- Explains your idea clearly  
-- Shows technical depth (LoRA + DRL)  
-- Looks professional for FYP  
-
----
-
-# 🚀 Next upgrade (if you want)
-
-I can help you add:
-
-👉 Architecture diagram (for report + GitHub)  
-👉 Research-style explanation section  
-👉 API layer (FastAPI) for demo  
-
-Just tell me 👍
-```
+Done! 👍
